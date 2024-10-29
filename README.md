@@ -89,7 +89,7 @@ sudo reboot
 
 #### 4. Installation des Programms
 ##### Programm auf den RPi hochladen
-Lade das Programm als ZIP-Datei von Patreon herunter und entpacke es. Übertrage anschließend den entpackten Ordner mit einem FTP-Programm auf deinen Raspberry Pi in das Verzeichnis /home/pi/.
+Lade das Programm als ZIP-Datei von Patreon oder BuyMeaCoffee herunter und entpacke es. Übertrage anschließend den entpackten Ordner mit einem FTP-Programm auf deinen Raspberry Pi in das Verzeichnis /home/pi/.
 
 ##### Öffne das Projektverzeichnis
 ```bash
