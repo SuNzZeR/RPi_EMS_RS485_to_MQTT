@@ -260,7 +260,7 @@ Ersetze `{EMS_Nr}` durch die tatsächliche EMS-Nummer in allen Topics.
 ## HomeAssistant MQTT-Entitäten
 ![HomeAssistant_Entitäten](HomeAssistant_Entitäten.jpg)
 
-https://github.com/SuNzZeR/EMS_RS485_to_MQTT/blob/66c1f8633fb252c2e4d7b689a12a258aab5033a7/HA_MQTT_configuration.yaml#L1-L295
+https://github.com/SuNzZeR/RPi_EMS_to_MQTT/blob/d2252c59805d536d3b7dcd17f553677767931735/HA_MQTT_configuration.yaml#L1-L295
 
 ## Lizenz
 Dieses Projekt ist unter der MIT-Lizenz lizenziert. Siehe die [LICENSE](LICENSE) Datei für Details.
