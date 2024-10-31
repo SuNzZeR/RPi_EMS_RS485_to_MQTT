@@ -41,16 +41,36 @@ Das Skript liest Daten von einem EMS über RS485, verarbeitet sie und veröffent
 Stelle sicher, dass der EMS (und die Batterie) richtig am RPi angeschlossen ist/sind.
 
 #### Variante 1
-| EMS RS485                    | RPi RS485 (ohne 120 Ohm Widerstand)  | BMS RS485                                         |
+| EMS RS485                    | RPi RS485 (ohne 120 Ohm Widerstand)  | BMS RS485/LINK 0/LINK 1                           |
 |------------------------------|--------------------------------------|---------------------------------------------------|
 | Pin 1                        | Anschluss A                          | Pin 6                                             |
 | Pin 5                        | Anschluss B                          | Pin 5                                             |
+
+<p align="center">
+  <img src="Verkabelung_Variante_1.jpg" alt="Verkabelung_Variante_1">
+</p>
+
+#### Variante 1 + [RPi_Feli_CAN_to_MQTT](https://github.com/SuNzZeR/RPi_Feli_CAN_to_MQTT)
+| EMS RS485                    | RPi RS485 + CAN (ohne 120 Ohm Widerstand)  | BMS LINK 0/LINK 1                                 |
+|------------------------------|--------------------------------------------|---------------------------------------------------|
+| Pin 1                        | Anschluss A                                | Pin 6                                             |
+| Pin 5                        | Anschluss B                                | Pin 5                                             |
+|                              | Anschluss L                                | Pin 7                                             |
+|                              | Anschluss H                                | Pin 8                                             |
+
+<p align="center">
+  <img src="Verkabelung_Variante_1+.jpg" alt="Verkabelung_Variante_1+">
+</p>
 
 #### Variante 2
 | EMS RS485                    | RPi RS485 (mit 120 Ohm Widerstand)  |
 |------------------------------|-------------------------------------|
 | Pin 1                        | Anschluss A                         |
 | Pin 5                        | Anschluss B                         | 
+
+<p align="center">
+  <img src="Verkabelung_Variante_2.jpg" alt="Verkabelung_Variante_2">
+</p>
 
 ### Vorbereitung des USB to RS485 Converters (falls verwendet & nur bei Variante 1)
 
