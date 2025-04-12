@@ -195,7 +195,8 @@ Füge folgenden Inhalt ein (bitte Pfad anpassen)
 ```bash
 [Unit]
 Description=RS485 to MQTT Service for EMS
-After=network.target
+After=network.target network-online.target
+Wants=network-online.target
 
 [Service]
 ExecStart=/usr/bin/python3 /home/pi/EMS_RS485_to_MQTT/ems_rs485_to_mqtt.py
