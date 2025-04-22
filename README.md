@@ -119,7 +119,7 @@ cd EMS_RS485_to_MQTT
 ```
 ##### Anpassen der [Konfiguration](#konfiguration) des Programms
 ```bash
-sudo nano ems_rs485_to_mqtt.py
+sudo nano ems_rs485_to_mqtt_config.py
 ```
 Hinweis: Editor mit STRG+X beenden, dabei das Speichern nicht vergessen! „Save modified buffer?“ -> y
 
@@ -132,6 +132,26 @@ Setze die EMS-Nummer (falls mehrere EMS ausgelesen werden):
 ```python
 EMS_Nr = "0001"
 ```
+
+Standardmäßig werden alle Daten veröffentlicht.
+Falls du nur bestimmte Daten brauchst, kannst du einzelne Datenbereiche deaktivieren, indem du den entsprechenden Schalter auf False setzt (durch Auskommentieren der True-Zeile und Aktivieren der False-Zeile).
+```python
+BATTERY_SETTINGS = True
+#BATTERY_SETTINGS = False
+
+BATTERY_DATA = True
+#BATTERY_DATA = False
+
+STATISTICS = True
+#STATISTICS = False
+
+EM_DATA = True
+#EM_DATA = False
+
+EMS_LOAD = True
+#EMS_LOAD = False
+```
+Die genaue Zuordnung der Topics zu den jeweiligen Schaltern findest du im Abschnitt [MQTT Topics](#mqtt-topics).
 
 ### RS485 Konfiguration
 Herausfinden des angeschlossenen RS485
@@ -237,59 +257,59 @@ Beispiel: `solar/ems/0001/EMS_Temperature`
 | EMS_Bypass/turn                    | EMS Bypass ein-/ausschalten           | String ("on" oder "off")                          |
 | EMS_Power_Limit/set                | EMS Leistungsbegrenzung setzen        | Integer (0-1600 W)                                |
 
-| Lesende Feldnamen (Veröffentlichen)  | Beschreibung                       | Wert                                              |
-|--------------------------------------|------------------------------------|---------------------------------------------------|
-| EMS_Limit                            | EMS Leistungsgrenze                | String ("on" oder "off")                          |
-| EMS_Power_Limit                      | EMS Leistungsbegrenzung            | Integer (Watt)                                    |
-| EMS_Load_Power                       | EMS Lastleistung                   | Integer (Watt)                                    |
-| EMS_EM                               | EMS Nulleinspeisung                | String ("on" oder "off")                          |
-| EMS_Bypass                           | EMS Bypass                         | String ("on" oder "off")                          |
-| EMS_Temperature                      | EMS Temperatur                     | Gleitkommazahl (in °C)                            |
-| EMS_Load_Energy                      | EMS Lastenergie                    | Gleitkommazahl (in kWh)                           |
-| -                                    | -                                  | -                                                 |
-| MPPT1_Voltage                        | MPPT1 Spannung                     | Gleitkommazahl (in Volt)                          |
-| MPPT1_Current                        | MPPT1 Strom                        | Gleitkommazahl (in Ampere)                        |
-| MPPT1_Power                          | MPPT1 Leistung                     | Gleitkommazahl (in Watt)                          |
-| MPPT1_Energy                         | MPPT1 Energie                      | Gleitkommazahl (in kWh)                           |
-| MPPT2_Voltage                        | MPPT2 Spannung                     | Gleitkommazahl (in Volt)                          |
-| MPPT2_Current                        | MPPT2 Strom                        | Gleitkommazahl (in Ampere)                        |
-| MPPT2_Power                          | MPPT2 Leistung                     | Gleitkommazahl (in Watt)                          |
-| MPPT2_Energy                         | MPPT2 Energie                      | Gleitkommazahl (in kWh)                           |
-| MPPT_Total_Energy                    | Gesamte MPPT Energie               | Gleitkommazahl (in kWh)                           |
-| -                                    | -                                  | -                                                 |
-| Battery_Online                       | Batterie Online                    | String ("Online" oder "Offline")                  |
-| Battery_BMS_Online                   | Batterie BMS Online                | String ("Online" oder "Offline")                  |
-| Battery_SOC                          | Batterie Ladezustand (SOC)         | Integer (in %)                                    |
-| Battery_Voltage                      | Batteriespannung                   | Gleitkommazahl (in Volt)                          |
-| Battery_Charging_Power               | Batterie Ladeleistung              | Gleitkommazahl (in Watt)                          |
-| Battery_Charging_Current             | Batterie Ladestrom                 | Gleitkommazahl (in Ampere)                        |
-| Battery_Discharging_Power            | Batterie Entladeleistung           | Gleitkommazahl (in Watt)                          |
-| Battery_Discharging_Current          | Batterie Entladestrom              | Gleitkommazahl (in Ampere)                        |
-| Battery_Temperature                  | Batterietemperatur                 | Gleitkommazahl (in °C)                            |
-| Battery_Energy                       | Batterie Energie                   | Gleitkommazahl (in kWh)                           |
-| -                                    | -                                  | -                                                 |
-| Battery_BMS_Type                     | Batterie BMS Typ                   | String                                            |
-| Battery_Type                         | Batterietyp                        | String                                            |
-| Battery_Voltage_Type                 | Batteriespannungstyp               | String                                            |
-| Battery_Capacity                     | Batteriekapazität                  | Integer (in Ah)                                   |
-| Battery_BMS_Max_Voltage              | Batterie BMS Maximalspannung       | Gleitkommazahl (in Volt)                          |
-| Battery_BMS_Max_Current              | Batterie BMS Maximalstrom          | Gleitkommazahl (in Ampere)                        |
-| Battery_BMS_Min_Voltage              | Batterie BMS Minimalspannung       | Gleitkommazahl (in Volt)                          |
-| Battery_Max_Voltage                  | Batterie Maximalspannung           | Gleitkommazahl (in Volt)                          |
-| Battery_Max_Current                  | Batterie Maximalstrom              | Gleitkommazahl (in Ampere)                        |
-| Battery_Min_Voltage                  | Batterie Minimalspannung           | Gleitkommazahl (in Volt)                          |
-| -                                    | -                                  | -                                                 |
-| EM_Online                            | EM Online                          | String ("Online" oder "Offline")                  |
-| EM_A_Power                           | EM A Leistung                      | Gleitkommazahl (in Watt)                          |
-| EM_A_Current                         | EM A Strom                         | Gleitkommazahl (in Ampere)                        |
-| EM_A_Voltage                         | EM A Spannung                      | Gleitkommazahl (in Volt)                          |
-| EM_B_Power                           | EM B Leistung                      | Gleitkommazahl (in Watt)                          |
-| EM_B_Current                         | EM B Strom                         | Gleitkommazahl (in Ampere)                        |
-| EM_B_Voltage                         | EM B Spannung                      | Gleitkommazahl (in Volt)                          |
-| EM_C_Power                           | EM C Leistung                      | Gleitkommazahl (in Watt)                          |
-| EM_C_Current                         | EM C Strom                         | Gleitkommazahl (in Ampere)                        |
-| EM_C_Voltage                         | EM C Spannung                      | Gleitkommazahl (in Volt)                          |
-| EM_Total_Power                       | Gesamte EM Leistung                | Gleitkommazahl (in Watt)                          |
+| Lesende Feldnamen (Veröffentlichen)  | Beschreibung                       | Wert                                              | Schalter |
+|--------------------------------------|------------------------------------|---------------------------------------------------|----------|
+| EMS_Limit                            | EMS Leistungsgrenze                | String ("on" oder "off")                          |  |
+| EMS_Power_Limit                      | EMS Leistungsbegrenzung            | Integer (Watt)                                    |  |
+| EMS_Load_Power                       | EMS Lastleistung                   | Integer (Watt)                                    | EMS_LOAD |
+| EMS_EM                               | EMS Nulleinspeisung                | String ("on" oder "off")                          |  |
+| EMS_Bypass                           | EMS Bypass                         | String ("on" oder "off")                          |  |
+| EMS_Temperature                      | EMS Temperatur                     | Gleitkommazahl (in °C)                            |  |
+| EMS_Load_Energy                      | EMS Lastenergie                    | Gleitkommazahl (in kWh)                           | STATISTICS |
+| -                                    | -                                  | -                                                 | - |
+| MPPT1_Voltage                        | MPPT1 Spannung                     | Gleitkommazahl (in Volt)                          |  |
+| MPPT1_Current                        | MPPT1 Strom                        | Gleitkommazahl (in Ampere)                        |  |
+| MPPT1_Power                          | MPPT1 Leistung                     | Gleitkommazahl (in Watt)                          |  |
+| MPPT1_Energy                         | MPPT1 Energie                      | Gleitkommazahl (in kWh)                           | STATISTICS |
+| MPPT2_Voltage                        | MPPT2 Spannung                     | Gleitkommazahl (in Volt)                          |  |
+| MPPT2_Current                        | MPPT2 Strom                        | Gleitkommazahl (in Ampere)                        |  |
+| MPPT2_Power                          | MPPT2 Leistung                     | Gleitkommazahl (in Watt)                          |  |
+| MPPT2_Energy                         | MPPT2 Energie                      | Gleitkommazahl (in kWh)                           | STATISTICS |
+| MPPT_Total_Energy                    | Gesamte MPPT Energie               | Gleitkommazahl (in kWh)                           | STATISTICS |
+| -                                    | -                                  | -                                                 | - |
+| Battery_Online                       | Batterie Online                    | String ("Online" oder "Offline")                  | BATTERY_DATA |
+| Battery_BMS_Online                   | Batterie BMS Online                | String ("Online" oder "Offline")                  | BATTERY_DATA |
+| Battery_SOC                          | Batterie Ladezustand (SOC)         | Integer (in %)                                    | BATTERY_DATA |
+| Battery_Voltage                      | Batteriespannung                   | Gleitkommazahl (in Volt)                          | BATTERY_DATA |
+| Battery_Charging_Power               | Batterie Ladeleistung              | Gleitkommazahl (in Watt)                          | BATTERY_DATA |
+| Battery_Charging_Current             | Batterie Ladestrom                 | Gleitkommazahl (in Ampere)                        | BATTERY_DATA |
+| Battery_Discharging_Power            | Batterie Entladeleistung           | Gleitkommazahl (in Watt)                          | BATTERY_DATA |
+| Battery_Discharging_Current          | Batterie Entladestrom              | Gleitkommazahl (in Ampere)                        | BATTERY_DATA |
+| Battery_Temperature                  | Batterietemperatur                 | Gleitkommazahl (in °C)                            | BATTERY_DATA |
+| Battery_Energy                       | Batterie Energie                   | Gleitkommazahl (in kWh)                           | STATISTICS |
+| -                                    | -                                  | -                                                 | - |
+| Battery_BMS_Type                     | Batterie BMS Typ                   | String                                            | BATTERY_SETTINGS |
+| Battery_Type                         | Batterietyp                        | String                                            | BATTERY_SETTINGS |
+| Battery_Voltage_Type                 | Batteriespannungstyp               | String                                            | BATTERY_SETTINGS |
+| Battery_Capacity                     | Batteriekapazität                  | Integer (in Ah)                                   | BATTERY_SETTINGS |
+| Battery_BMS_Max_Voltage              | Batterie BMS Maximalspannung       | Gleitkommazahl (in Volt)                          | BATTERY_SETTINGS |
+| Battery_BMS_Max_Current              | Batterie BMS Maximalstrom          | Gleitkommazahl (in Ampere)                        | BATTERY_SETTINGS |
+| Battery_BMS_Min_Voltage              | Batterie BMS Minimalspannung       | Gleitkommazahl (in Volt)                          | BATTERY_SETTINGS |
+| Battery_Max_Voltage                  | Batterie Maximalspannung           | Gleitkommazahl (in Volt)                          | BATTERY_SETTINGS |
+| Battery_Max_Current                  | Batterie Maximalstrom              | Gleitkommazahl (in Ampere)                        | BATTERY_SETTINGS |
+| Battery_Min_Voltage                  | Batterie Minimalspannung           | Gleitkommazahl (in Volt)                          | BATTERY_SETTINGS |
+| -                                    | -                                  | -                                                 | - |
+| EM_Online                            | EM Online                          | String ("Online" oder "Offline")                  | EM_DATA |
+| EM_A_Power                           | EM A Leistung                      | Gleitkommazahl (in Watt)                          | EM_DATA |
+| EM_A_Current                         | EM A Strom                         | Gleitkommazahl (in Ampere)                        | EM_DATA |
+| EM_A_Voltage                         | EM A Spannung                      | Gleitkommazahl (in Volt)                          | EM_DATA |
+| EM_B_Power                           | EM B Leistung                      | Gleitkommazahl (in Watt)                          | EM_DATA |
+| EM_B_Current                         | EM B Strom                         | Gleitkommazahl (in Ampere)                        | EM_DATA |
+| EM_B_Voltage                         | EM B Spannung                      | Gleitkommazahl (in Volt)                          | EM_DATA |
+| EM_C_Power                           | EM C Leistung                      | Gleitkommazahl (in Watt)                          | EM_DATA |
+| EM_C_Current                         | EM C Strom                         | Gleitkommazahl (in Ampere)                        | EM_DATA |
+| EM_C_Voltage                         | EM C Spannung                      | Gleitkommazahl (in Volt)                          | EM_DATA |
+| EM_Total_Power                       | Gesamte EM Leistung                | Gleitkommazahl (in Watt)                          | EM_DATA |
 
 ## HomeAssistant MQTT-Entitäten
 ![HomeAssistant_Entitäten](HomeAssistant_Entitäten.jpg)
